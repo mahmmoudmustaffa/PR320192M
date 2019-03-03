@@ -7,11 +7,18 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -34,6 +41,8 @@ public class LoginFrame extends JFrame{
     private ButtonGroup group;
     private JTextArea textArea;
     private JScrollPane scrollPane;
+    private JTextField textFieldData;
+    private JCheckBox checkBoxBold,checkBoxItalic;
     public LoginFrame(String title) {
         super(title);
         loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -50,7 +59,10 @@ public class LoginFrame extends JFrame{
         loginPanel.add(labelPassword);
         textFieldPassword = new JPasswordField(30);
          buttonOK = new JButton("ok");
+         EventHandler eventHandler = new EventHandler();
+         buttonOK.addActionListener(eventHandler);
          buttonCancel = new JButton("Cancel");
+         buttonCancel.addActionListener(eventHandler);
         loginPanel.add(textFieldPassword);
         loginPanel.add(buttonOK);
         loginPanel.add(buttonCancel); 
@@ -68,6 +80,15 @@ public class LoginFrame extends JFrame{
         setLayout(new FlowLayout(FlowLayout.CENTER));
         add(loginPanel);
         add(scrollPane);
+        textFieldData = new JTextField("Intital Data", 40);
+        checkBoxBold = new JCheckBox("Bold");
+        checkBoxItalic = new JCheckBox("Italic");
+        add(textFieldData);
+        add(checkBoxBold);
+        add(checkBoxItalic);
+        EventHandler2 eventHandler2 = new EventHandler2();
+        checkBoxBold.addItemListener(eventHandler2);
+        checkBoxItalic.addItemListener(eventHandler2);
         
         
        
@@ -83,6 +104,38 @@ public class LoginFrame extends JFrame{
         loginPanel.add(radioButtonLow);
         loginPanel.add(radioButtonMid);
         loginPanel.add(radioButtonHigh);
+        
+    }
+    private class EventHandler implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource() == buttonOK)
+            JOptionPane.showMessageDialog(null, 
+                  textFieldName.getText() + "\n"+
+                  String.valueOf(textFieldPassword.getPassword()));
+            else if(e.getSource() == buttonCancel)
+                System.exit(0);
+        }
+        
+    }
+    private class EventHandler2 implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if(checkBoxBold.isSelected() && checkBoxItalic.isSelected())
+                textFieldData.setFont(
+                        new Font("Arial", Font.BOLD + Font.ITALIC, 18));
+            else if(checkBoxBold.isSelected())
+                textFieldData.setFont(
+                        new Font("Arial", Font.BOLD, 18));
+            else if(checkBoxItalic.isSelected())
+                textFieldData.setFont(
+                        new Font("Arial", Font.ITALIC, 18));
+            else textFieldData.setFont(
+                        new Font("Arial", Font.PLAIN, 18));
+                
+        }
         
     }
     
