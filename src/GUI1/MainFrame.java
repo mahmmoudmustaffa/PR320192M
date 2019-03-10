@@ -7,6 +7,8 @@ package GUI1;
 
 import java.awt.HeadlessException;
 import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -14,11 +16,16 @@ import javax.swing.JFrame;
  */
 public class MainFrame extends JFrame{
     private CalcPanel calcPanel;
-
+    private JTabbedPane tabbedPane;
+    private JTextArea textArea;
     public MainFrame(String title) throws HeadlessException {
         super(title);
+        tabbedPane = new JTabbedPane();
         calcPanel = new CalcPanel();
-        add(calcPanel);
+        tabbedPane.addTab("Calaculator", null, calcPanel, "To make your calculationa");
+        textArea = new JTextArea("Programmimg is very Funny !?!?!?");
+        tabbedPane.addTab("Text Area", null, textArea, "Any tip");
+        add(tabbedPane);
     }
     public static void main(String[] args) {
         MainFrame mainFrame = new MainFrame("Main Window");
