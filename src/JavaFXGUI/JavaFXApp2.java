@@ -39,7 +39,7 @@ public class JavaFXApp2 extends Application{
         Parent parent = loader.load();
         ListViewNames.setItems(FXCollections.
                 observableArrayList("Ahmad","Saed","Omar"));
-        Scene scene = new Scene(parent, 200, 200);
+        Scene scene = new Scene(parent, 300,300);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
